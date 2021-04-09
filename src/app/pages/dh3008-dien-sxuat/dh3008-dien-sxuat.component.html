@@ -1,0 +1,89 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-12" style="height: 70px;">
+    <p class="title">Điện sản xuất toàn hệ thống</p>
+  </div>
+  <!-- <div class="logo-float__72" *ngIf="service.currentVersion !=  'DH3008'">
+    <img class="evn" src="assets/layout/images/logoEVN.jpg" alt="evn">
+  </div> -->
+  <div class="ui-g-12 ui-md-12" style="height: 50px;">
+    <p-calendar [style]="{'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '20px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px',
+          'width': '150px',
+          'min-width': '150px',
+          'position': 'relative',
+          'left': '47%'}" [(ngModel)]="dThangSelected" (onSelect)="onSelectMonth($event)" [readonlyInput]="true" view="month"
+      dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2050" [showIcon]="true">
+    </p-calendar>
+  </div>
+
+  <div style="height: 43vh" class="ui-g-12 ui-md-6 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title pl-72">Cơ cấu nguồn <span style="text-transform: none;">(triệu kWh)</span></p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+        style="width: 100%; height: 40vh; display: block;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-6">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title pl-72">Thực hiện và kế hoạch <span style="text-transform: none;">(triệu kWh)</span></p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTHKH" [options]="chartOptionTHKH"
+        style="width: 100%; height: 40vh; display: block; padding-right: 72px;">
+      </highcharts-chart>
+    </div>
+  </div>
+
+  <div class="ui-g-12 ui-md-12">
+    <div style="width: 100%; padding: 0 72px;">
+      <table class="table-font">
+        <tr>
+          <!-- class="line-hight__30"  -->
+          <th rowspan="2">STT</th>
+          <th rowspan="2">Loại Nguồn</th>
+          <th colspan="2">Kế hoạch hàng năm theo</th>
+          <th rowspan="2">Thực hiện lũy kế</th>
+          <th colspan="3">So sánh %</th>
+        </tr>
+        <tr>
+          <th>KH lũy kế</th>
+          <th>KH năm</th>
+          <th>Cùng kì năm trước</th>
+          <th>Lũy kế</th>
+          <th>Cả năm</th>
+        </tr>
+        <ng-container *ngFor="let item of lstData;let i = index">
+          <tr>
+            <td>{{i+1}}</td>
+            <td>{{item.loai_nguon}}</td>
+            <td>{{item.keHoachNThang}}</td>
+            <td>{{item.keHoachCaNam}}</td>
+            <td>{{item.thucHienNThang}}</td>
+            <td>{{item.soSanhThucHienCungKyNamTruoc}}%</td>
+            <td>{{item.soSanhKhThangNamTruoc}}%</td>
+            <td>{{item.soSanhKhNamNamTruoc}}%</td>
+          </tr>
+        </ng-container>
+
+      </table>
+    </div>
+  </div>
+</div>

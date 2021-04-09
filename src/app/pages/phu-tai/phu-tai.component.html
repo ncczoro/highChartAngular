@@ -1,0 +1,47 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+<div class="ui-g ui-fluid" [ngClass]="service.currentVersion=='EVN'? 'zoom__50' : ''">
+  <div class="ui-g-12 ui-md-12">
+    <p class="title">biểu đồ công suất phụ tải</p>
+  </div>
+  <div class="logo-float__72" *ngIf="service.currentVersion !=  'DH3008'">
+    <img class="evn" src="assets/layout/images/logoEVN.jpg" alt="evn">
+  </div>
+
+  <div class="ui-g-5 ui-md-5">
+    <!-- <p *ngIf="pMax" style="color:#5D6F77;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    float: right;
+    text-align: center;"> P Max = <span style="color: #CE7A58;">{{this.pMax}} MW</span> </p>  -->
+  </div>
+  <div class="ui-g-2 ui-md-2">
+    <p-calendar [style]="{
+      'color': '#51515','font-family': 'Open Sans',
+      'font-style': 'normal',
+      'font-weight': '600',
+      'font-size': '20px',
+      'line-height': '27px',
+      'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+      'box-sizing': 'border-box',
+      'border-radius': '4px',
+      'width': '150px',
+      'position': 'relative',
+      'left': '25%'
+      }" [(ngModel)]="dPhuTai" (onSelect)="onSelectDate($event)" [readonlyInput]="true" [monthNavigator]="true"
+      dateFormat="dd/mm/yy" [yearNavigator]="true" [showIcon]="true" yearRange="2000:2030">
+    </p-calendar>
+  </div>
+  <div class="ui-g-5 ui-md-5"> </div>
+
+  <div class="ui-g-12 ui-md-12">
+    <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions" [style.height]="service.currentVersion == 'DH3008' ? '80vh' : '85vh'"
+      style="width: 100%; display: block; padding-left: 72px; padding-right: 72px;">
+    </highcharts-chart>
+  </div>
+</div>

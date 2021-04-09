@@ -1,0 +1,18 @@
+h1 {
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+
+.intro {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.intro2 {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+    margin-top: 5px;
+}

@@ -1,0 +1,296 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-12" style="height: 70px;">
+    <p class="title">Tổng hợp sự cố</p>
+  </div>
+  <!-- <div class="logo-float__72">
+    <img class="evn" src="assets/layout/images/logoEVN.jpg" alt="evn">
+  </div> -->
+  <div class="ui-g-12 ui-md-12" style="height: 50px;">
+    <p-dropdown [style]="{
+      'height':'30px',
+        'color': '#51515','font-family': 'Open Sans',
+        'font-style': 'normal',
+        'font-weight': '600',
+        'font-size': '20px',
+        'line-height': '27px',
+        'border-top': '1px solid #D8D8D8',
+        'border-right': '1px solid #D8D8D8',
+        'border-left': '1px solid #D8D8D8',
+        'box-sizing': 'border-box',
+        'border-radius': '4px',
+        'min-width': '200px',
+        'width': '200px',
+        'position':'relative',
+        'left': '42%',
+        'margin-bottom': '3px'
+        }" [options]="lstCNPD" [(ngModel)]="selectedCNPD" (onChange)="onChageCNPD($event)">
+    </p-dropdown>
+
+    <p-calendar [style]="{'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '20px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px',
+          'width': '150px',
+          'min-width': '150px',
+          'position': 'relative',
+          'left': '43%'}" [(ngModel)]="dDateSelected" (onSelect)="onSelectDate($event)" [readonlyInput]="true"
+      dateFormat="dd/mm/yy" [yearNavigator]="true" [showIcon]="true">
+    </p-calendar>
+  </div>
+
+  <div style="height: 25vh" class="ui-g-12 ui-md-4 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title pl-72">Tỷ trọng sản lượng thiếu hụt <span style="text-transform: none;">(triệu kWh)</span> </p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartSL" [options]="chartOptionSL"
+        style="width: 100%; height: 30vh; display: block; ">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height: 25vh" class="ui-g-12 ui-md-4 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title">Tỷ trọng thời gian sự cố <span style="text-transform: none;">(phút)</span> </p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTG" [options]="chartOptionTG"
+        style="width: 100%; height: 30vh; display: block;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-4">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title">So sánh số vụ sự cố</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTHKH" [options]="chartOptionTHKH"
+        style="width: 100%; height: 30vh; display: block; padding-right: 72px;">
+      </highcharts-chart>
+    </div>
+  </div>
+
+  <div class="ui-g-12 ui-md-12">
+    <!-- <div style="width: 100%; padding: 0 72px; ">
+      <table class="table-font">
+        <tr>
+          <th rowspan="2">Tổng công ty</th>
+          <th rowspan="2"> Đơn Vị</th>
+          <th colspan="4"> Số vụ sự cố</th>
+          <th rowspan="2">Tổng thời gian sự cố (phút) </th>
+          <th rowspan="2">Tổng sản lượng thiếu hụt (tr.kWh) </th>
+        </tr>
+        <tr>
+          <th>Tuần</th>
+          <th>Tháng</th>
+          <th>Năm</th>
+          <th>Năm trước</th>
+        </tr>
+
+        <tr>
+          <td [attr.rowspan]="lstEVN.length+1" style="background-color: white;">EVN</td>
+        </tr>
+        <ng-container *ngFor="let item of lstEVN; let i = index">
+          <tr>
+            <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+            <td>{{item.luyKeTuan}}</td>
+            <td>{{item.luyKeThang}}</td>
+            <td>{{item.luyKeNam}}</td>
+            <td>{{item.luyKeNamCungKy}}</td>
+            <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+            <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+          </tr>
+        </ng-container>
+
+        <tr>
+          <td [attr.rowspan]="lstThuocEVN.length+1" style="background-color: white;">Các đơn vị trực thuộc EVN</td>
+        </tr>
+        <ng-container *ngFor="let item of lstThuocEVN; let i = index">
+          <tr>
+            <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+            <td>{{item.luyKeTuan}}</td>
+            <td>{{item.luyKeThang}}</td>
+            <td>{{item.luyKeNam}}</td>
+            <td>{{item.luyKeNamCungKy}}</td>
+            <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+            <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+          </tr>
+        </ng-container>
+        <tr>
+          <td [attr.rowspan]="lstGENCO1.length+1" style="background-color: white;">Tổng công ty phát điện 1</td>
+        </tr>
+        <ng-container *ngFor="let item of lstGENCO1; let i = index">
+          <tr>
+            <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+            <td>{{item.luyKeTuan}}</td>
+            <td>{{item.luyKeThang}}</td>
+            <td>{{item.luyKeNam}}</td>
+            <td>{{item.luyKeNamCungKy}}</td>
+            <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+            <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+          </tr>
+        </ng-container>
+        <tr>
+          <td [attr.rowspan]="lstGENCO2.length+1" style="background-color: white;">Tổng công ty phát điện 2</td>
+        </tr>
+        <ng-container *ngFor="let item of lstGENCO2; let i = index">
+          <tr>
+            <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+            <td>{{item.luyKeTuan}}</td>
+            <td>{{item.luyKeThang}}</td>
+            <td>{{item.luyKeNam}}</td>
+            <td>{{item.luyKeNamCungKy}}</td>
+            <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+            <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+          </tr>
+        </ng-container>
+        <tr>
+          <td [attr.rowspan]="lstGENCO3.length+1" style="background-color: white;">Tổng công ty phát điện 3</td>
+        </tr>
+        <ng-container *ngFor="let item of lstGENCO3; let i = index">
+          <tr>
+            <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+            <td>{{item.luyKeTuan}}</td>
+            <td>{{item.luyKeThang}}</td>
+            <td>{{item.luyKeNam}}</td>
+            <td>{{item.luyKeNamCungKy}}</td>
+            <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+            <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+          </tr>
+        </ng-container>
+
+
+      </table>
+    </div> -->
+
+
+
+    <div style="width: 100%; padding: 0 72px; ">
+
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <table class="table-font" cellspacing="0" cellpadding="0" style="padding-right: 15px;">
+              <tr>
+                <th rowspan="2" style="width: 15%;">Tổng công ty</th>
+                <th rowspan="2" style="width: 25%;"> Đơn Vị</th>
+                <th colspan="4" style="width: 40%;"> Số vụ sự cố</th>
+                <th rowspan="2" style="width: 10%;">Tổng thời gian sự cố (phút) </th>
+                <th rowspan="2" style="width: 10%;">Tổng sản lượng thiếu hụt <span style="text-transform: none !important;">(tr.kWh)</span> </th>
+              </tr>
+              <tr>
+                <th style="width: 10%;">Tuần</th>
+                <th style="width: 10%;">Tháng</th>
+                <th style="width: 10%;">Năm</th>
+                <th style="width: 10%;">Năm trước</th>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div style="height:30vh; overflow:auto;">
+              <table class="table-font"  cellspacing="0" cellpadding="0">
+                <tr>
+                  <td [attr.rowspan]="lstEVN.length+1" style="background-color: white; width: 15%;">EVN</td>
+                </tr>
+                <ng-container *ngFor="let item of lstEVN; let i = index">
+                  <tr>
+                    <td style="width: 25%;">{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+                    <td style="width: 10%;">{{item.luyKeTuan}}</td>
+                    <td style="width: 10%;">{{item.luyKeThang}}</td>
+                    <td style="width: 10%;">{{item.luyKeNam}}</td>
+                    <td style="width: 10%;">{{item.luyKeNamCungKy}}</td>
+                    <td style="width: 10%;">{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+                    <td style="width: 10%;">{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+                  </tr>
+                </ng-container>
+        
+                <tr>
+                  <td [attr.rowspan]="lstThuocEVN.length+1" style="background-color: white;">Các đơn vị trực thuộc EVN</td>
+                </tr>
+                <ng-container *ngFor="let item of lstThuocEVN; let i = index">
+                  <tr>
+                    <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+                    <td>{{item.luyKeTuan}}</td>
+                    <td>{{item.luyKeThang}}</td>
+                    <td>{{item.luyKeNam}}</td>
+                    <td>{{item.luyKeNamCungKy}}</td>
+                    <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+                    <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+                  </tr>
+                </ng-container>
+                <tr>
+                  <td [attr.rowspan]="lstGENCO1.length+1" style="background-color: white;">Tổng công ty phát điện 1</td>
+                </tr>
+                <ng-container *ngFor="let item of lstGENCO1; let i = index">
+                  <tr>
+                    <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+                    <td>{{item.luyKeTuan}}</td>
+                    <td>{{item.luyKeThang}}</td>
+                    <td>{{item.luyKeNam}}</td>
+                    <td>{{item.luyKeNamCungKy}}</td>
+                    <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+                    <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+                  </tr>
+                </ng-container>
+                <tr>
+                  <td [attr.rowspan]="lstGENCO2.length+1" style="background-color: white;">Tổng công ty phát điện 2</td>
+                </tr>
+                <ng-container *ngFor="let item of lstGENCO2; let i = index">
+                  <tr>
+                    <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+                    <td>{{item.luyKeTuan}}</td>
+                    <td>{{item.luyKeThang}}</td>
+                    <td>{{item.luyKeNam}}</td>
+                    <td>{{item.luyKeNamCungKy}}</td>
+                    <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+                    <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+                  </tr>
+                </ng-container>
+                <tr>
+                  <td [attr.rowspan]="lstGENCO3.length+1" style="background-color: white;">Tổng công ty phát điện 3</td>
+                </tr>
+                <ng-container *ngFor="let item of lstGENCO3; let i = index">
+                  <tr>
+                    <td>{{item.ma_donvi == 'GE00' ? 'EVN' : item.ten_donvi}}</td>
+                    <td>{{item.luyKeTuan}}</td>
+                    <td>{{item.luyKeThang}}</td>
+                    <td>{{item.luyKeNam}}</td>
+                    <td>{{item.luyKeNamCungKy}}</td>
+                    <td>{{stringFormat(item?.thoiGianSuCo.toFixed(1))}}</td>
+                    <td>{{item?.sanLuongThieuHut.toFixed(1)}}</td>
+                  </tr>
+                </ng-container>
+        
+        
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+
+
+      
+    </div>
+
+
+
+  </div>
+</div>

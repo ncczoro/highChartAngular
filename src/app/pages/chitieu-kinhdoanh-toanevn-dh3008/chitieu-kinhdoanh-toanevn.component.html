@@ -1,0 +1,142 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div class="ui-g ui-fluid" [ngClass]="service.currentVersion == 'EVN' ? 'zoom__60' : ''">
+  <div class="ui-g-12 ui-md-12 " style="height: 6vh ;padding-left: 72px !important; padding-right: 72px !important">
+    <p class="title" style="font-size: 26px !important">Báo cáo tổng hợp các chỉ tiêu kinh doanh toàn EVN</p>
+  </div>
+  <div class="ui-g-6 ui-md-6" style="height: 5vh;padding-left: 72px !important;">
+    <p-dropdown [style]="{'color': '#51515','font-family': 'Open Sans',
+        'font-style': 'normal',
+        'font-weight': '600',
+        'font-size': '18px',
+        'line-height': '27px',
+        'border-top': '1px solid #D8D8D8',
+        'border-right': '1px solid #D8D8D8',
+        'border-left': '1px solid #D8D8D8',
+        'box-sizing': 'border-box',
+        'border-radius': '4px',
+        'padding-left': '12px',
+        'min-width': '200px',
+        'width': '200px',
+        'position':'relative',
+        'float': 'right',
+        'height': '28px',
+        'margin-bottom': '3px'}" [options]="lstLoaiBCao" (onChange)="onChangeLoaiBCao($event)" [(ngModel)]="loaiBcao">
+    </p-dropdown>
+  </div>
+
+  <div class="ui-g-6 ui-md-6" style="height: 5vh; padding-right: 72px !important">
+    <p-calendar [style]="{
+        'color': '#51515','font-family': 'Open Sans',
+        'font-style': 'normal',
+        'font-weight': '600',
+        'font-size': '18px',
+        'line-height': '27px',
+        'border-top': '1px solid #D8D8D8',
+            'border-right': '1px solid #D8D8D8',
+            'border-left': '1px solid #D8D8D8',
+        'box-sizing': 'border-box',
+        'border-radius': '4px',
+        'width': '150px',
+        'min-width': '150px',
+          'position': 'relative',
+        'float': 'left'
+        }" [(ngModel)]="selectedYear" (onSelect)="onSelectDate($event)" [readonlyInput]="true" [monthNavigator]="true"
+      view="month" dateFormat="mm/yy" [yearNavigator]="true" [showIcon]="true" yearRange="2000:2030">
+    </p-calendar>
+  </div>
+
+  <!---Biểu đồ 1-->
+
+  <div class="ui-g-12 ui-md-4 border-right">
+    <p class=" sub-title resize-sub-title pl-72">Điện thương phẩm <span style="text-transform: none;">(triệu kWh)</span>
+    </p>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+        style="width: 100%;  height:  20vh; display: block; padding-left: 72px;">
+      </highcharts-chart>
+    </div>
+
+  </div>
+  <!---Biểu đồ 2-->
+  <div class="ui-g-12 ui-md-4 border-right">
+    <p class=" sub-title resize-sub-title">Doanh thu <span style="text-transform: none;">(tỷ đồng)</span>
+    </p>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptionsDThu"
+        style="width: 100%;  height:  20vh; display: block">
+      </highcharts-chart>
+    </div>
+
+  </div>
+  <!---Biểu đồ 3-->
+
+  <div class="ui-g-12 ui-md-4 border-right">
+    <p class=" sub-title resize-sub-title pr-72">Số HĐMBĐ <span style="text-transform: none;">(triệu)</span> </p>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptionsHDMBD"
+        style="width: 100%;  height:  20vh; display: block; padding-right: 72px;">
+      </highcharts-chart>
+    </div>
+
+  </div>
+  <!---Biểu đồ 4-->
+  <div class="ui-g-12 ui-md-4 border-right">
+    <p class=" sub-title resize-sub-title pl-72">Giá bình quân <span style="text-transform: none;">(đồng/kWh)</span>
+    </p>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptionsGiaBQ"
+        style="width: 100%;  height: 27vh; display: block; padding-left: 72px;">
+      </highcharts-chart>
+    </div>
+
+  </div>
+  <!---Biểu đồ 5-->
+  <div class="ui-g-12 ui-md-4 border-right">
+    <p class=" sub-title resize-sub-title ">Tỷ lệ tổn thất theo QĐ 385 (%)</p>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions385"
+        style="width: 100%;  height: 27vh; display: block;">
+      </highcharts-chart>
+    </div>
+
+  </div>
+  <!---Biểu đồ 6-->
+
+  <div class="ui-g-12 ui-md-4 border-right">
+    <p class=" sub-title resize-sub-title pr-72">Tổn thất theo QĐ 1508 (%)</p>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions1508"
+        style="width: 100%;  height: 27vh; display: block;padding-right: 72px;">
+      </highcharts-chart>
+    </div>
+
+  </div>
+  <div class="ui-g-12 ui-md-12" *ngIf="lstDataTable!= undefined">
+    <div style="width: 100%; padding: 0 72px;">
+      <table class="table-font  ">
+        <tr>
+          <th class="resize-table">Tên đơn vị</th>
+          <th class="resize-table">Thương phẩm <span style="text-transform: none;">(triệu kWh)</span></th>
+          <th class="resize-table">Giá bình quân <span style="text-transform: none;">(đ/kWh)</span></th>
+          <th class="resize-table">Doanh thu + bán CSPK <span style="text-transform: none;">(tỷ đồng)</span></th>
+          <th class="resize-table">Tổn thất theo QĐ 385 (%)</th>
+          <th class="resize-table">Tổn thất theo QĐ 1508 (%)</th>
+        </tr>
+
+        <ng-container *ngFor="let item of lstDataTable;let i = index">
+          <tr>
+            <td class="resize-table">{{item.tenDvi}}</td>
+            <td class="resize-table"> {{stringFormat(item.thuongPham) }}</td>
+            <td class="resize-table"> {{stringFormat(item.giaBquan) }}</td>
+            <td class="resize-table"> {{stringFormat(item.doanhThu) }}</td>
+            <td class="resize-table"> {{stringFormat(item.tt385) }}</td>
+            <td class="resize-table"> {{stringFormat(item.tt1508) }}</td>
+          </tr>
+        </ng-container>
+
+      </table>
+    </div>
+  </div>
+</div>

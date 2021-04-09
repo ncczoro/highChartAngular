@@ -1,0 +1,135 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-12" style="height: 6vh; padding-left: 72px !important;padding-right: 72px !important">
+    <p class="title" style="font-size: 26px !important;">Báo cáo năng suất lao động</p>
+  </div>
+
+  <div class="ui-g-12 ui-md-12 " style="height: 5vh; padding-left: 72px !important; padding-right: 72px !important">
+    <p-dropdown [style]="{'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '18px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px',
+          'padding-left': '12px',
+          'width': '100px',
+          'min-width': '100px',
+          'position': 'relative',
+          'left': '48%'
+        }" [options]="lstYear" (onChange)="onYearChange($event)" [(ngModel)]="selectedYear">
+    </p-dropdown>
+  </div>
+
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right pl-72">
+    <div class="ui-g ui-fluid pl-72">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title  resize-sub-title">EVN theo sản lượng điện TP</p>
+        <p class="sub-title  resize-sub-title" style="text-transform: none;">(triệu kWh/Lao động)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartSLDTP" [options]="chartOptionSLDTP"
+        style="width: 100%; height: 30vh; display: block; padding-left: 72px;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title resize-sub-title">5TCTĐL theo khách hàng</p>
+        <p class="sub-title resize-sub-title" style="text-transform: none;">(khách hàng/Lao động)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTheoKH" [options]="chartOptionTheoKH"
+        style="width: 100%; height: 30vh; display: block;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title resize-sub-title">Genco theo sản lượng sản xuất</p>
+        <p class="sub-title resize-sub-title" style="text-transform: none;">(triệu kWh/Lao Động)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTheoSLSX" [options]="chartOptionTheoSLSX"
+        style="width: 100%; height: 30vh; display: block;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right pr-72">
+    <div class="ui-g ui-fluid pr-72">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title resize-sub-title">Genco theo công suất đặt </p>
+        <p class="sub-title resize-sub-title" style="text-transform: none;">(người/MW)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTheoCSLD" [options]="chartOptionTheoCSLD"
+        style="width: 100%; height: 30vh; display: block; padding-right: 72px;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right pl-72">
+    <div class="ui-g ui-fluid pl-72">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title resize-sub-title">NPT theo sản lượng điện truyền tải</p>
+        <p class="sub-title resize-sub-title " style="text-transform: none;">(triệu kWh/Lao động)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTheoSLDTT" [options]="chartOptionTheoSLDTT"
+        style="width: 100%; height: 30vh; display: block; padding-left: 72px;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title resize-sub-title">NPT theo Km đường dây </p>
+        <p class="sub-title resize-sub-title" style="text-transform: none;">(người/km)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTheoKmDD" [options]="chartOptionTheoKmDD"
+        style="width: 100%; height: 30vh; display: block;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title resize-sub-title">5 TCTDL theo sản lượng điện thương phẩm</p>
+        <p class="sub-title resize-sub-title" style="text-transform: none;">(triệu kWh/Lao động)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTheoSLDTP" [options]="chartOptionTheoSLDTP"
+        style="width: 100%; height: 30vh; display: block;">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div style="height:  38vh" class="ui-g-12 ui-md-3 border-right pr-72">
+    <div class="ui-g ui-fluid pr-72">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title resize-sub-title">NPT theo công suất đặt TBA </p>
+        <p class="sub-title resize-sub-title " style="text-transform: none;">(người/MW)</p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTheoCSTBA" [options]="chartOptionTheoCSTBA"
+        style="width: 100%; height: 30vh; display: block; padding-right: 72px;">
+      </highcharts-chart>
+    </div>
+  </div>
+
+
+</div>

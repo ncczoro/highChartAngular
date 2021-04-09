@@ -1,0 +1,135 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-12" style="height: 6vh">
+    <p class="title" style="font-size: 26px !important;padding-left: 72px !important; padding-right: 72px !important">
+      Báo cáo doanh thu lợi nhuận</p>
+  </div>
+
+  <div class="ui-g-6 ui-md-6" style="height: 5vh;padding-left: 72px !important;">
+    <p-dropdown [style]="{'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '18px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px',
+          'padding-left': '12px',
+          'width': '150px',
+          'min-width': '150px',
+          'position': 'relative',
+          'float': 'right'
+        }" [options]="lstQuy" (onChange)="onQuyChange($event)" [(ngModel)]="selectedQuy">
+    </p-dropdown>
+  </div>
+  <div class="ui-g-6 ui-md-6" style="height: 5vh; padding-right: 72px !important">
+    <p-dropdown [style]="{'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '18px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px',
+          'padding-left': '12px',
+          'width': '150px',
+          'min-width': '150px',
+          'position': 'relative',
+          'float': 'left'
+        }" [options]="lstYear" (onChange)="onYearChange($event)" [(ngModel)]="selectedYear">
+    </p-dropdown>
+  </div>
+  <div style="width: 100%; height: 65%; display: flex;padding-right: 67px !important; padding-left: 72px !important;">
+    <ng-container *ngFor="let item of legend">
+      <div style="width: 20%; margin-right: 5px;">
+        <table class="bordered">
+          <tr>
+            <th class="line-hight__30 resize" [style.background-color]="item.color" colspan="3">
+              {{item.loai}}<br> <span style="text-transform: none">(tỷ đồng)</span></th>
+          </tr>
+          <tr>
+            <td class="so-nau resize" pTooltip="Giá trị">
+              {{stringFormat(item.giatri)}} </td>
+            <td class="so-den resize" pTooltip="Tỷ lệ so với năm trước" style=" white-space: nowrap;">
+              <span>
+                <i style="font-size: 26px; font-weight: 900;"
+                  [style.color]="item.tyLeSoSanh >=0 ? '#219653' : '#ED5050'"
+                  [ngClass]="{'fa fa-fw ui-icon-arrow-drop-up': item.tyLeSoSanh >=0, 'fa fa-fw ui-icon-arrow-drop-down' : item.tyLeSoSanh < 0}"></i>
+                {{stringFormat(item?.tyLeSoSanh?.toFixed(2))}}%
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ng-container>
+  </div>
+  <div class="ui-g-12 ui-md-6 border-right">
+    <div class="ui-g ui-fluid" style="padding-left: 72px!important;">
+      <div class="ui-g-12 ui-md-12 ">
+        <p class="sub-title" style="font-size: 16px !important">Doanh thu bán điện các khối <span
+            style="text-transform: none">(tỷ đồng)</span></p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartKBD" [options]="chartOptionKBD"
+        style="width: 100%; height:  32vh; display: block; padding-left: 72px !important">
+      </highcharts-chart>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-6">
+    <div class="ui-g ui-fluid" style="padding-right: 72px!important;">
+      <div class="ui-g-12 ui-md-12 ">
+        <p class="sub-title" style="font-size: 16px !important">Tổng tài sản <span style="text-transform: none">(tỷ
+            đồng)</span></p>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highchartTTS" [options]="chartOptionTTS"
+        style="width: 100%; height:  32vh; display: block; padding-right: 72px !important">
+      </highcharts-chart>
+    </div>
+  </div>
+
+  <div class="ui-g-12 ui-md-12">
+    <div style="width: 100%; padding: 0 72px;">
+      <table class="table-font">
+        <tr>
+          <!-- class="line-hight__30"   colspan="3"-->
+          <th class="resize">Khối</th>
+          <th>Đơn vị</th>
+          <th class="resize">Doanh thu và thu nhập khác <br><span style="text-transform: none;">(tỷ đồng)</span></th>
+          <th class="resize">Doanh thu bán điện <br><span style="text-transform: none;">(tỷ đồng)</span></th>
+          <th class="resize">Tổng tài sản <br><span style="text-transform: none;">(tỷ đồng)</span></th>
+          <th class="resize">Vốn chủ sở hữu <br><span style="text-transform: none;">(tỷ đồng)</span></th>
+          <th class="resize">Nộp ngân sách nhà nước <br><span style="text-transform: none;">(tỷ đồng)</span></th>
+        </tr>
+
+        <ng-container *ngFor="let item of lstDataYearSelect">
+          <ng-container *ngFor="let ctiet of item.DATA_CTIET;let i = index">
+            <tr>
+              <td class="resize" [attr.rowspan]="item.DATA_CTIET.length" style="background-color: #FFF" *ngIf="i==0">
+                {{item.KHOI}}
+              </td>
+              <!--Bởi vì dữ liệu ở bảng này có sử dụng để tính toán ở dữ liệu chart nên dữ nguyên dữ liệu gốc và format trên đây-->
+              <td class="resize">{{ctiet.DON_VI}} </td>
+              <td class="resize">{{stringFormat( getNumber(ctiet.DTHU_KHAC/1000000000)) }}</td>
+              <td class="resize">{{stringFormat(getNumber(ctiet.DTHU_BDIEN/1000000000)) }}</td>
+              <td class="resize">{{stringFormat(getNumber(ctiet.TONG_TSAN/1000000000)) }}</td>
+              <td class="resize">{{stringFormat(getNumber(ctiet.VON_CHUSH/1000000000)) }}</td>
+              <td class="resize">{{stringFormat(getNumber(ctiet.NOP_NSNN/1000000000)) }}</td>
+            </tr>
+          </ng-container>
+
+        </ng-container>
+
+
+      </table>
+    </div>
+  </div>
+</div>

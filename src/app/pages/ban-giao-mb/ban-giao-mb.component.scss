@@ -1,0 +1,42 @@
+h1 { text-transform: uppercase; color: black; font-weight: bold;}
+.ts-lable{
+    background: #D6DDE1;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+    height: 10vh;
+}
+
+
+.ts {
+    border: 2px solid #D8D8D8;
+    box-sizing: border-box;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+.sel{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: #515151;
+    padding: 0 10px 0 10px;
+}
+.ts-lable__show{
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: 5vh;
+    color: #515151;
+    padding-top: 8%;
+}
+.sum-lable{
+    font-family: 'Oswald';
+    font-size: 12vh;
+    // line-height: 10vh;
+    color: #CE7A58;
+    font-weight: bold;
+}

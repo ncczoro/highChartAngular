@@ -1,0 +1,57 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+<div class="ui-g ui-fluid" [ngClass]="service.currentVersion=='EVN'? 'zoom__50' : ''">
+  <div class="ui-g-12 ui-md-12">
+    <p class="title" style="line-height: 0;">dữ liệu phụ tải</p>
+  </div>
+  <div class="ui-g-5 ui-md-5"></div>
+  <div class="ui-g-2 ui-md-2">
+    <p-calendar [style]="{
+      'color': '#51515','font-family': 'Open Sans',
+      'font-style': 'normal',
+      'font-weight': '600',
+      'font-size': '20px',
+      'line-height': '27px',
+      'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+      'box-sizing': 'border-box',
+      'border-radius': '4px',
+      'width': '150px',
+      'position': 'relative',
+      'left': '32%'
+      }" [(ngModel)]="dPhuTai" (onSelect)="onSelectDate($event)" [readonlyInput]="true" [monthNavigator]="true"
+      dateFormat="dd/mm/yy" [yearNavigator]="true" [showIcon]="true" yearRange="2000:2030">
+    </p-calendar>
+  </div>
+  <div class="ui-g-5 ui-md-5"> </div>
+
+  <div class="ui-g-12 ui-md-12">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-4 ui-md-4">
+        <p class="sub-title">Sản lượng A ngày <span style="text-transform: none;">(MWh)</span></p>
+        <highcharts-chart [Highcharts]="highchartNgay" [options]="chartOptionNgay"
+          style="width: 100%; display: block; padding-left: 72px; height: 40vh;">
+        </highcharts-chart>
+      </div>
+      <div class="ui-g-4 ui-md-4">
+        <p class="sub-title">Sản lượng A tháng <span style="text-transform: none;">(MWh)</span></p>
+        <highcharts-chart [Highcharts]="highchartThang" [options]="chartOptionThang"
+          style="width: 100%; display: block; padding-left: 20px; padding-right: 20px; height: 40vh;">
+        </highcharts-chart>
+      </div>
+      <div class="ui-g-4 ui-md-4">
+        <p class="sub-title">Sản lượng A năm <span style="text-transform: none;">(MWh)</span></p>
+        <highcharts-chart [Highcharts]="highchartNam" [options]="chartOptionNam"
+          style="width: 100%; display: block; padding-right: 72px; height: 40vh;">
+        </highcharts-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-g-12 ui-md-12">
+    <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+      style="width: 100%; display: block; padding-left: 72px; padding-right: 72px; height: 40vh;">
+    </highcharts-chart>
+  </div>
+</div>

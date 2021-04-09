@@ -1,0 +1,76 @@
+<div class="ui-g ui-g-12" style="height: 100% ;display: flex;" *ngIf="lstTTinDauTu!= undefined">
+  <div class="ui-g-12 ui-md-3 tag" style="height: 100%;" *ngFor="let item of lstTTinDauTu">
+    <div class="ui-g-12" style="height: 20%; background-color: #EAC344;">
+      <p class="title-table1">{{item.LOAI_CVIEC}} <span style="text-transform: none;">(triệu đồng)</span></p>
+      <p class="title-table1">{{stringFormat(item.TONG)}}</p>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-7 text-loaihinh"> <b>TRẢ NỢ GỐC VAY</b> </div>
+      <div class="ui-g-1">&nbsp; </div>
+      <div class="ui-g-4 text-loaihinh"><b><span style="float: right">{{stringFormat(item.TRANO_GOCVAY)}}
+            &nbsp;</span></b> </div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-6 text-loaihinh"> <b>GÓP VỐN VÀ HOÀN TRẢ LƯỚI ĐIỆN</b> </div>
+      <div class="ui-g-1">&nbsp; </div>
+      <div class="ui-g-5 text-loaihinh"><b><span style="float: right">
+            {{stringFormat(item.GOPVON_HTRA)}}&nbsp;</span></b> </div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7 text-loaihinh"> <b>ĐẦU TƯ THUẦN</b> </div>
+      <div class="ui-g-1">&nbsp; </div>
+      <div class="ui-g-4 text-loaihinh"><b><span style="float: right"> {{stringFormat(item.DAUTU_THUAN)}}
+            &nbsp;</span></b> </div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7 le4px text-tenloai-da" style="float: left ">&nbsp;&nbsp;&nbsp; - Nguồn điện</div>
+      <div class="ui-g-1 le4px">&nbsp; </div>
+      <div class="ui-g-4 le4px text-loaihinh-da"><span
+          style="float: right">{{stringFormat(item.DAUTU_THUAN_CTIET.NGUON_DIEN)}}
+          &nbsp;</span></div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7 le4px text-tenloai-da" style="float: left ">&nbsp;&nbsp;&nbsp; - Lưới điện 500KV </div>
+      <div class="ui-g-1 le4px">&nbsp; </div>
+      <div class="ui-g-4 le4px text-loaihinh-da"><span
+          style="float: right">{{stringFormat(item.DAUTU_THUAN_CTIET.LUOI_DIEN_500KV)}}
+          &nbsp;</span></div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7 le4px text-tenloai-da" style="float: left ">&nbsp;&nbsp;&nbsp; - Lưới điện 220KV</div>
+      <div class="ui-g-1 le4px">&nbsp; </div>
+      <div class="ui-g-4 le4px text-loaihinh-da"><span
+          style="float: right">{{stringFormat(item.DAUTU_THUAN_CTIET.LUOI_DIEN_220KV)}}
+          &nbsp;</span></div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7 le4px text-tenloai-da" style="float: left ">&nbsp;&nbsp;&nbsp; - Lưới điện 110KV</div>
+      <div class="ui-g-1 le4px">&nbsp; </div>
+      <div class="ui-g-4 le4px text-loaihinh-da"><span
+          style="float: right">{{stringFormat(item.DAUTU_THUAN_CTIET.LUOI_DIEN_110KV)}}
+          &nbsp;</span></div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7 le4px text-tenloai-da" style="float: left ">&nbsp;&nbsp;&nbsp; - Lưới điện trung hạ thế</div>
+      <div class="ui-g-1 le4px">&nbsp; </div>
+      <div class="ui-g-4 le4px text-loaihinh-da"><span
+          style="float: right">{{stringFormat(item.DAUTU_THUAN_CTIET.LUOI_DIEN_THT)}}
+          &nbsp;</span></div>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7 le4px text-tenloai-da" style="float: left ">&nbsp;&nbsp;&nbsp; - Dự án khác</div>
+      <div class="ui-g-1 le4px">&nbsp; </div>
+      <div class="ui-g-4 le4px text-loaihinh-da"><span
+          style="float: right">{{stringFormat(item.DAUTU_THUAN_CTIET.DU_AN_KHAC)}}
+          &nbsp;</span></div>
+    </div>
+  </div>
+</div>

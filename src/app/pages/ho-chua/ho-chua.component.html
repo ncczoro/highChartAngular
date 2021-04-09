@@ -1,0 +1,46 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-12">
+    <p class="title pr-72">TÌNH HÌNH THỦY VĂN HỒ CHỨA TRỌNG ĐIỂM</p>
+  </div>
+  <div class="ui-g-0 ui-md-3"> </div>
+  <div class="ui-g-6 ui-md-3">
+    <p-dropdown [style]="{
+        'height':'30px',
+          'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '20px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px'
+          }" [options]="lstHoChua" [(ngModel)]="selectedHoChua" (onChange)="onChageHoChua($event)">
+    </p-dropdown>
+  </div>
+  <div class="ui-g-6 ui-md-3">
+    <p-calendar [style]="{
+        'color': '#51515','font-family': 'Open Sans',
+        'font-style': 'normal',
+        'font-weight': '600',
+        'font-size': '20px',
+        'line-height': '27px',
+        'border-top': '1px solid #D8D8D8',
+        'border-right': '1px solid #D8D8D8',
+        'border-left': '1px solid #D8D8D8',
+        'box-sizing': 'border-box',
+        'border-radius': '4px',
+        'width':'150px'
+        }" [(ngModel)]="dHoChua" (onSelect)="onSelectDate($event)" [readonlyInput]="true" [monthNavigator]="true"
+      dateFormat="dd/mm/yy" [yearNavigator]="true" yearRange="2000:2030" [showIcon]="true">
+    </p-calendar>
+  </div>
+
+</div>
+<highcharts-chart [Highcharts]="highcharts" [options]="chartOptions" [style.height]="service.currentVersion == 'DH3008' ? '80vh' : '83vh'"
+  style="width: 100%; display: block; padding-right: 72px">
+</highcharts-chart>

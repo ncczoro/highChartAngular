@@ -1,0 +1,27 @@
+h1 {
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+
+.tong-csuat {
+    color: #8C8C8C;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Open Sans';
+    font-size: 18px;
+}
+
+.so-tcs {
+    color: #219653;
+    font-family: 'Oswald';
+    font-size: 18px;
+}
+.resize-sub-title {
+    font-size: 16px !important;
+    line-height: 20px !important;
+}
+.resize-table {
+    font-size: 16px !important;
+    line-height: 24px !important;
+}

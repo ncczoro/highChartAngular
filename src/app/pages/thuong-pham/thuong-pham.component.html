@@ -1,0 +1,60 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+<div class="ui-g ui-fluid" style="padding-top: 12px;" [ngClass]="service.currentVersion=='EVN'? 'zoom__50' : ''">
+  <div class="ui-g-12 ui-md-6 border-right">
+    <p class="title pl-72">tỷ trọng thương phẩm 5 thành phần phụ tải <span style="text-transform: none;">(MWh)</span> </p>
+    <div class="logo-float__72" *ngIf="service.currentVersion !=  'DH3008'">
+      <img class="evn" src="assets/layout/images/logoEVN.jpg" alt="evn">
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <div style="max-width:120px !important; margin-left: 45%;">
+          <p-calendar
+          [style]="{'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '20px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px',
+          'width': '120px',
+          'min-width': '120px'}" 
+          [(ngModel)]="dThuongPham" view="month"
+            (onSelect)="onSelectDate()" [readonlyInput]="true" dateFormat="mm/yy" [yearNavigator]="true"
+            yearRange="2000:2030" [showIcon]="true">
+          </p-calendar>
+        </div>
+      </div>
+
+    </div>
+    <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+      style="width: 100%; height: 38vh; display: block; ">
+    </highcharts-chart>
+    <div class="ui-g ui-fluid pl-72" [ngClass]="service.currentVersion=='VPCP'? 'float-table__80' : ''">
+        <ng-container *ngFor="let item of legend; let last=last;">
+          <div class="ui-g-6 ui-md-6" [ngClass]="{'ui-md-12': last,'ui-md-12': last}">
+            <table class="bordered">
+              <tr>
+                <th [style.background-color]="item.color" colspan="2">{{item.loai}}</th>
+              </tr>
+              <tr>
+                <td class="so-nau__line-height__92">{{item.giatri}}</td>
+                <td class="so-den__size38">{{item.phantram}}</td>
+              </tr>
+            </table>
+          </div>
+        </ng-container>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-6">
+    <app-ho-chua></app-ho-chua>
+  </div>
+  <!-- <div class="ui-g-12 ui-md-12">
+    <div>
+      <img class="evn" src="assets/layout/images/logoEVN.jpg" alt="evn">
+    </div>
+  </div> -->
+</div>

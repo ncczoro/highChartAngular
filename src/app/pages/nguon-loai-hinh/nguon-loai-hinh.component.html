@@ -1,0 +1,72 @@
+<p-toast></p-toast>
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div class="ui-g ui-fluid" [ngClass]="service.currentVersion == 'EVN' ? 'zoom__60' : ''">
+  <div class="ui-g-12 ui-md-12" style="height: 70px;">
+    <p class="title">Cơ cấu nguồn điện</p>
+  </div>
+  <div class="logo-float__72" *ngIf="service.currentVersion !=  'DH3008'">
+    <img class="evn" src="assets/layout/images/logoEVN.jpg" alt="evn">
+  </div>
+
+  <!-- <div class="ui-md-1"> </div> -->
+  <div style="height: 88vh" class="ui-g-12 ui-md-6 border-right">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <p class="sub-title pl-72">theo loại hình (MW)</p>
+        <div style="max-width:75px !important; margin-left: 48%;">
+          <p-dropdown [style]="{'color': '#51515','font-family': 'Open Sans',
+          'font-style': 'normal',
+          'font-weight': '600',
+          'font-size': '20px',
+          'line-height': '27px',
+          'border-top': '1px solid #D8D8D8',
+          'border-right': '1px solid #D8D8D8',
+          'border-left': '1px solid #D8D8D8',
+          'box-sizing': 'border-box',
+          'border-radius': '4px',
+          'padding-left': '12px',
+          'width': '100px'}" [options]="lstYear" (onChange)="onYearChange($event)" [(ngModel)]="selectedYear">
+          </p-dropdown>
+        </div>
+      </div>
+
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+        style="width: 100%; display: block; padding-left: 72px;" [style.height]="this.service.currentVersion == 'DH3008' ? '43vh' : '45vh'">
+      </highcharts-chart>
+    </div>
+    <div class="ui-g ui-fluid pl-72" [ngClass]="service.currentVersion == 'VPCP' ? 'float-table' : ''">
+      <ng-container *ngFor="let item of legend">
+        <div class="ui-g-6 ui-md-4">
+          <table class="bordered">
+            <tr>
+              <th class="line-hight__30" [style.background-color]="item.color" colspan="3">{{item.loai}}</th>
+            </tr>
+            <tr>
+              <td class="so-nau" pTooltip="Giá trị">{{item.giatri}}</td>
+              <td class="so-den" pTooltip="Tỷ trọng">{{item.phantram}}</td>
+              <td class="so-den" pTooltip="Tỷ lệ so với năm trước" style="width: 40%; white-space: nowrap;">
+                <span>
+                  <i style="font-size: 26px; font-weight: 900;" [style.color]="item.tyLeSoSanh >=0 ? '#219653' : '#ED5050'"
+                     [ngClass]="{'fa fa-fw ui-icon-arrow-drop-up': item.tyLeSoSanh >=0, 'fa fa-fw ui-icon-arrow-drop-down' : item.tyLeSoSanh < 0}"></i>
+                  {{stringFormat(item?.tyLeSoSanh?.toFixed(2))}}%
+              </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-6">
+    <app-nguon-chu-so-huu></app-nguon-chu-so-huu>
+  </div>
+  <!-- <div class="ui-md-1"> </div> -->
+  <!-- <div class="ui-g-12 ui-md-12">
+    <div>
+      <img class="evn" src="assets/layout/images/logoEVN.jpg" alt="evn">
+    </div>
+  </div> -->
+</div>
